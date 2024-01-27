@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace MultishopOnion.Application.Abstractions.Repositories.Generic
 {
-    internal interface IGenericRepository<T> where T : BaseEntity, new()
+    public interface IGenericRepository<T> where T : BaseEntity, new()
     {
         
     }
