@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,10 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\Core\MultishopOnion.Application\MultishopOnion.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\MultishopOnion.Persistence\MultishopOnion.Persistence.csproj" />
   </ItemGroup>
 
