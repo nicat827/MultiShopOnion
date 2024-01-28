@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Writers;
 using MultishopOnion.Application.Abstractions.Services;
 using MultishopOnion.Application.Dtos;
+using System.Net;
 
 namespace MultishopOnion.API.Controllers
 {
@@ -11,16 +13,18 @@ namespace MultishopOnion.API.Controllers
     public class SlidesController : ControllerBase
     {
         private readonly ISlideService _service;
+        private readonly IWebHostEnvironment _env;
 
-        public SlidesController(ISlideService service)
+        public SlidesController(ISlideService service, IWebHostEnvironment env)
         {
             _service = service;
+            _env = env;
         }
         [HttpPost]
 
         public async Task<IActionResult> Post([FromForm]SlidePostDto dto)
         {
-            await _service.CreateAsync(dto);
+            await _service.CreateAsync(dto, _env.WebRootPath);
             return StatusCode(StatusCodes.Status201Created);
         }
 
@@ -42,7 +46,7 @@ namespace MultishopOnion.API.Controllers
         public async Task<IActionResult> Put(int id, [FromForm] SlidePutDto dto)
         {
             if (id <= 0) return BadRequest();
-            await _service.UpdateAsync(id,dto);
+            await _service.UpdateAsync(id,dto, _env.WebRootPath);
             return Ok();
         }
 

@@ -1,5 +1,7 @@
-
+using MutishopOnion.Infrastructure.ServiceRegistration;
 using MultishopOnion.Persistence.ServiceRegistration;
+using MultishopOnion.Application.ServiceRegistration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddInfrastructureServices();
+builder.Services.AddApplicationServices();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

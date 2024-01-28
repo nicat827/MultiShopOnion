@@ -10,12 +10,12 @@ namespace MultishopOnion.Application.Abstractions.Services
     public interface ISlideService
     {
 
-        Task CreateAsync(SlidePostDto dto);
+        Task CreateAsync(SlidePostDto dto, string rootPath);
 
         Task<IEnumerable<SlideGetItemDto>> GetAsync(int? page = null, int? limit = null);
 
         Task<SlideGetDto> GetByIdAsync(int id);
-        Task UpdateAsync(int id, SlidePutDto dto);
+        Task UpdateAsync(int id, SlidePutDto dto, string rootPath);
 
         Task DeleteAsync(int id);
     }

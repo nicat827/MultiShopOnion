@@ -17,6 +17,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\MultishopOnion.Application\MultishopOnion.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\MultishopOnion.Persistence\MultishopOnion.Persistence.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\MutishopOnion.Infrastructure\MutishopOnion.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\slides\" />
   </ItemGroup>
 
 </Project>
