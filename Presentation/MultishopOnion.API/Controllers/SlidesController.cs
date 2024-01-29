@@ -55,7 +55,7 @@ namespace MultishopOnion.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0) throw new BadRequestException(mess: "Invalid id!");
-            await _service.DeleteAsync(id);
+            await _service.DeleteAsync(id, _env.WebRootPath);
             return NoContent();
         }
 

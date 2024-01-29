@@ -8,21 +8,20 @@ namespace MultishopOnion.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class SizesController : ControllerBase
     {
-        private readonly ICategoryService _service;
-        private readonly IWebHostEnvironment _env;
 
-        public CategoriesController(ICategoryService service, IWebHostEnvironment env)
+        private readonly ISizeService _service;
+
+        public SizesController(ISizeService service)
         {
             _service = service;
-            _env = env;
         }
         [HttpPost]
 
-        public async Task<IActionResult> Post([FromForm] CategoryPostDto dto)
+        public async Task<IActionResult> Post([FromForm] SizePostDto dto)
         {
-            await _service.CreateAsync(dto, _env.WebRootPath);
+            await _service.CreateAsync(dto);
             return StatusCode(StatusCodes.Status201Created);
         }
 
@@ -41,10 +40,10 @@ namespace MultishopOnion.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromForm] CategoryPutDto dto)
+        public async Task<IActionResult> Put(int id, [FromForm] SizePutDto dto)
         {
             if (id <= 0) throw new BadRequestException(mess: "Invalid id!");
-            await _service.UpdateAsync(id, dto, _env.WebRootPath);
+            await _service.UpdateAsync(id, dto);
             return Ok();
         }
 
@@ -52,7 +51,7 @@ namespace MultishopOnion.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0) throw new BadRequestException(mess: "Invalid id!");
-            await _service.DeleteAsync(id, _env.WebRootPath);
+            await _service.DeleteAsync(id);
             return NoContent();
         }
     }

@@ -19,6 +19,10 @@ namespace MultishopOnion.Persistence.DAL
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Color> Colors { get; set; }
+
+        public DbSet<Size> Sizes { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -17,6 +17,6 @@ namespace MultishopOnion.Application.Abstractions.Services
         Task<SlideGetDto> GetByIdAsync(int id);
         Task UpdateAsync(int id, SlidePutDto dto, string rootPath);
 
-        Task DeleteAsync(int id);
+        Task DeleteAsync(int id,string rootPath);
     }
 }

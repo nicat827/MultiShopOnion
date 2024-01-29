@@ -69,11 +69,15 @@ namespace MultishopOnion.Persistence.Implementations.Services
             await _repository.SaveChangesAsync();
 
         }
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id, string rootPath)
         {
-            Slide? slide = await _repository.GetByIdAsync(id, isTracking:true, iqnoreQuery:true);
+            Slide? slide = await _repository.GetByIdAsync(id, isTracking: true, iqnoreQuery: true);
             if (slide is null) throw new NotFoundException(mess: "Slide wasnt found!");
-            if (slide.IsDeleted) _repository.Delete(slide);
+            if (slide.IsDeleted)
+            {
+                _fileService.DeleteFile(slide.ImageUrl, rootPath, "uploads", "slides");
+                _repository.Delete(slide);
+            }
             else slide.IsDeleted = true;
             await _repository.SaveChangesAsync();
         }

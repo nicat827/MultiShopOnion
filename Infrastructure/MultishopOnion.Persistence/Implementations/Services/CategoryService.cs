@@ -73,11 +73,15 @@ namespace MultishopOnion.Persistence.Implementations.Services
             await _repository.SaveChangesAsync();
 
         }
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id, string rootPath)
         {
             Category? category = await _repository.GetByIdAsync(id, isTracking: true, iqnoreQuery: true);
             if (category is null) throw new NotFoundException(mess: "Category wasnt found!");
-            if (category.IsDeleted) _repository.Delete(category);
+            if (category.IsDeleted)
+            {
+                _fileService.DeleteFile(category.ImageUrl, rootPath, "uploads", "categories");
+                _repository.Delete(category);
+            }
             else category.IsDeleted = true;
             await _repository.SaveChangesAsync();
         }

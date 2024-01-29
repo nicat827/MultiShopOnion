@@ -23,10 +23,14 @@ namespace MultishopOnion.Persistence.ServiceRegistration
             //repos
             services.AddScoped<ISlideRepository, SlideRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IColorRepository, ColorRepository>();
+            services.AddScoped<ISizeRepository, SizeRepository>();
 
             //services
             services.AddScoped<ISlideService, SlideService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IColorService, ColorService>();
+            services.AddScoped<ISizeService, SizeService>();
         }
     }
 }

@@ -1,28 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MultishopOnion.Application.Abstractions.Services;
 using MultishopOnion.Application.Dtos;
 using MultishopOnion.Application.Exceptions;
 
 namespace MultishopOnion.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    [Route("/api/[controller]")]
+    public class ColorsController:ControllerBase
     {
-        private readonly ICategoryService _service;
-        private readonly IWebHostEnvironment _env;
+        private readonly IColorService _service;
 
-        public CategoriesController(ICategoryService service, IWebHostEnvironment env)
+        public ColorsController(IColorService service)
         {
             _service = service;
-            _env = env;
         }
         [HttpPost]
 
-        public async Task<IActionResult> Post([FromForm] CategoryPostDto dto)
+        public async Task<IActionResult> Post([FromForm] ColorPostDto dto)
         {
-            await _service.CreateAsync(dto, _env.WebRootPath);
+            await _service.CreateAsync(dto);
             return StatusCode(StatusCodes.Status201Created);
         }
 
@@ -41,10 +38,10 @@ namespace MultishopOnion.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromForm] CategoryPutDto dto)
+        public async Task<IActionResult> Put(int id, [FromForm] ColorPutDto dto)
         {
             if (id <= 0) throw new BadRequestException(mess: "Invalid id!");
-            await _service.UpdateAsync(id, dto, _env.WebRootPath);
+            await _service.UpdateAsync(id, dto);
             return Ok();
         }
 
@@ -52,7 +49,7 @@ namespace MultishopOnion.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0) throw new BadRequestException(mess: "Invalid id!");
-            await _service.DeleteAsync(id, _env.WebRootPath);
+            await _service.DeleteAsync(id);
             return NoContent();
         }
     }

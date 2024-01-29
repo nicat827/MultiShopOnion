@@ -16,6 +16,6 @@ namespace MultishopOnion.Application.Abstractions.Services
         Task<CategoryGetDto> GetByIdAsync(int id);
         Task UpdateAsync(int id, CategoryPutDto dto, string rootPath);
 
-        Task DeleteAsync(int id);
+        Task DeleteAsync(int id, string rootPath);
     }
 }
