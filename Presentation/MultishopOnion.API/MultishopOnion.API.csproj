@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\uploads\slides\" />
+    <Folder Include="wwwroot\uploads\categories\" />
   </ItemGroup>
 
 </Project>

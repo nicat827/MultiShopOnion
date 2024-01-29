@@ -27,6 +27,7 @@ namespace MultishopOnion.API.Middlewares
             catch (Exception ex)
             {
                 context.Response.ContentType = "application/json";
+                context.Response.StatusCode = 500;
                 var obj = new { statusCode = 500, message = ex.Message };
                 await context.Response.WriteAsJsonAsync(obj);
             }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MultishopOnion.Application.Abstractions.Services;
+using MultishopOnion.Application.Exceptions;
 using MultishopOnion.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace MutishopOnion.Infrastructure.Implementations
     {
         public void CheckFileSize(IFormFile file, int maxSize)
         {
-            if (file.Length >= maxSize * 1024) throw new Exception("size is bigger!");
+            if (file.Length >= maxSize * 1024) throw new FileValidationException($"File size must be less than {maxSize}KB!");
         }
 
         public void CheckFileType(IFormFile file, FileType type)
@@ -21,13 +22,13 @@ namespace MutishopOnion.Infrastructure.Implementations
             switch (type)
             {
                 case FileType.Image:
-                    if (!file.ContentType.Contains("image/")) throw new Exception("not valid");
+                    if (!file.ContentType.Contains("image/")) throw new FileValidationException("Invalid upload! Expected image!");
                     break;
                 case FileType.Audio:
-                    if (!file.ContentType.Contains("audio/")) throw new Exception("not valid");
+                    if (!file.ContentType.Contains("audio/")) throw new FileValidationException("Invalid upload! Expected audio!");
                     break;
                 case FileType.Video:
-                    if (!file.ContentType.Contains("video/")) throw new Exception("not valid");
+                    if (!file.ContentType.Contains("video/")) throw new FileValidationException("Invalid upload! Expected video!");
                     break;
 
             }

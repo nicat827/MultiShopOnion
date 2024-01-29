@@ -17,6 +17,8 @@ namespace MultishopOnion.Persistence.DAL
        
         public DbSet<Slide> Slides { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
