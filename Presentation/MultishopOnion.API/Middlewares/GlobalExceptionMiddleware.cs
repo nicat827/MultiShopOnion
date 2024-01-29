@@ -23,7 +23,12 @@ namespace MultishopOnion.API.Middlewares
                 context.Response.StatusCode = ex.StatusCode;
                 var obj = new {statusCode =  ex.StatusCode, message = ex.Message};
                 await context.Response.WriteAsJsonAsync(obj);
-                
+            }
+            catch (Exception ex)
+            {
+                context.Response.ContentType = "application/json";
+                var obj = new { statusCode = 500, message = ex.Message };
+                await context.Response.WriteAsJsonAsync(obj);
             }
         }
     }

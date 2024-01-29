@@ -33,7 +33,6 @@ namespace MultishopOnion.API.Controllers
         public async Task<IActionResult> Get(int? page = null, int? limit = null)
         {
             if (page <= 0 || limit <= 0) throw new BadRequestException(mess: "Invalid page or limit!");
-
             return Ok(await  _service.GetAsync(page, limit));
         }
 
