@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MultishopOnion.Application.Abstractions.Repositories;
 using MultishopOnion.Application.Abstractions.Services;
 using MultishopOnion.Application.Dtos;
+using MultishopOnion.Application.Exceptions;
 using MultishopOnion.Domain.Entities;
 using MultishopOnion.Domain.Enums;
 using System;
@@ -47,7 +48,7 @@ namespace MultishopOnion.Persistence.Implementations.Services
         public async Task<SlideGetDto> GetByIdAsync(int id)
         {
             Slide slide = await _repository.GetByIdAsync(id);
-            if (slide == null) throw new Exception("Slide dont found!");
+            if (slide == null) throw new NotFoundException(mess:"Slide wasnt found!");
             return _mapper.Map<SlideGetDto>(slide);
 
         }
@@ -55,7 +56,7 @@ namespace MultishopOnion.Persistence.Implementations.Services
         public async Task UpdateAsync(int id, SlidePutDto dto, string rootPath)
         {
             Slide slide = await _repository.GetByIdAsync(id);
-            if (slide == null) throw new Exception("Slide dont found!");
+            if (slide == null) throw new NotFoundException(mess: "Slide wasnt found!");
             if (dto.Photo is not null)
             {
                 _fileService.CheckFileType(dto.Photo, FileType.Image);
@@ -71,7 +72,7 @@ namespace MultishopOnion.Persistence.Implementations.Services
         public async Task DeleteAsync(int id)
         {
             Slide? slide = await _repository.GetByIdAsync(id, isTracking:true, iqnoreQuery:true);
-            if (slide is null) throw new Exception("not found!");
+            if (slide is null) throw new NotFoundException(mess: "Slide wasnt found!");
             if (slide.IsDeleted) _repository.Delete(slide);
             else slide.IsDeleted = true;
             await _repository.SaveChangesAsync();

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Writers;
 using MultishopOnion.Application.Abstractions.Services;
 using MultishopOnion.Application.Dtos;
+using MultishopOnion.Application.Exceptions;
 using System.Net;
 
 namespace MultishopOnion.API.Controllers
@@ -31,21 +32,22 @@ namespace MultishopOnion.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(int? page = null, int? limit = null)
         {
-            if (page <= 0 || limit <= 0) return BadRequest();
+            if (page <= 0 || limit <= 0) throw new BadRequestException(mess: "Invalid page or limit!");
+
             return Ok(await  _service.GetAsync(page, limit));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            if (id<=0) return NotFound();
+            if (id <= 0) throw new BadRequestException(mess: "Invalid id!");
             return Ok(await _service.GetByIdAsync(id));
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromForm] SlidePutDto dto)
         {
-            if (id <= 0) return BadRequest();
+            if (id <= 0) throw new BadRequestException(mess: "Invalid id!");
             await _service.UpdateAsync(id,dto, _env.WebRootPath);
             return Ok();
         }
@@ -53,6 +55,7 @@ namespace MultishopOnion.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (id <= 0) throw new BadRequestException(mess: "Invalid id!");
             await _service.DeleteAsync(id);
             return NoContent();
         }
