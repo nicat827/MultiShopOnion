@@ -1,4 +1,5 @@
 ﻿using MultishopOnion.Application.Abstractions.Repositories.Generic;
+using MultishopOnion.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
